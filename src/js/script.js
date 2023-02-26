@@ -3,9 +3,9 @@ $(document).ready(function () {
     speed: 1200,
     adaptiveHeight: true,
     prevArrow:
-      '<button type="button" class="slick-prev"><img src="../icos/next.svg"></button>',
+      '<button type="button" class="slick-prev"><img src="img/icos/next.svg"></button>',
     nextArrow:
-      '<button type="button" class="slick-next"><img src="../icos/prev.svg"></button>',
+      '<button type="button" class="slick-next"><img src=img/icos/prev.svg"></button>',
     responsive: [
       {
         breakpoint: 992,
@@ -94,5 +94,36 @@ $(document).ready(function () {
   validateForms("#consultation-form");
   validateForms("#consultation form");
   validateForms("#order form");
+
+  $("input[name=phone]").mask("+7 (999) 999-99-99");
+
+  $("form").submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "../mailer/smart.php",
+      data: $(this).serialize(),
+    }).done(function () {
+      $(this).find("input").val("");
+      $("#consultation, #order").fadeOut();
+      $(".overlay, #thank").fadeIn("slow");
+
+      $("form").trigger("reset");
+    });
+    return false;
+  });
+
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 1600) {
+      $(".pageup").fadeIn();
+    } else {
+      $(".pageup").fadeOut();
+    }
+  });
+
+  $("a[href^='#']").click(function () {
+    const _href = $(this).attr("href");
+    $("html, body").animate({ scrollTop: $(_href).offset().top + "px" });
+    return false;
+  });
 });
-$(`input[name=[phone]`).mask("(375) 999-99-99");
