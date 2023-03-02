@@ -1,3 +1,6 @@
+@import "libs/bootstrap-reboot.min";
+@import "libs/fonts";
+@import "libs/slick";
 @import "base/variables";
 @import "base/animation";
 * {
@@ -8,7 +11,7 @@
   margin: 0 auto;
 }
 @import "blocks/promo";
-@import "blocks/header.scss";
+@import "blocks/header";
 @import "blocks/button";
 @import "blocks/advantages";
 @import "blocks/title";
